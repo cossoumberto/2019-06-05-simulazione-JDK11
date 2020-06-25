@@ -21,7 +21,7 @@ import it.polito.tdp.crimes.db.EventsDao;
 public class Model {
 	
 	private EventsDao dao;
-	private Graph<District, DefaultWeightedEdge> grafo;
+	private Graph<District, DefaultWeightedEdge> grafo; //NELLA CORREZIONE DISTRETTI GESTITI COME INTERI E SENZA IDMAP
 	private Map<Integer, District> idMap;
 	private Simulator s;
 	
@@ -40,7 +40,7 @@ public class Model {
 		Graphs.addAllVertices(grafo, idMap.values());
 		for(Integer d1 : idMap.keySet())
 			for(Integer d2 : idMap.keySet()) 
-				if(!d1.equals(d2) && !grafo.containsEdge(idMap.get(d1), idMap.get(d2))) {
+				if(!d1.equals(d2) && !grafo.containsEdge(idMap.get(d1), idMap.get(d2))) { //NELLA CORREZIONE LAT E LONG MEDIA PRESI DAL DAO SEPARATI
 					Double distanza = LatLngTool.distance(idMap.get(d1).getCoord(), idMap.get(d2).getCoord(), LengthUnit.KILOMETER);
 					Graphs.addEdge(grafo, idMap.get(d1), idMap.get(d2), distanza);
 			}

@@ -58,7 +58,7 @@ public class FXMLController {
     			txtResult.appendText("\n" + d.toString() + "\n");
     			for(DistrictDistanza dd : model.getVicini(d))
     				txtResult.appendText(dd.toString() + "\n");
-    		}
+    		}//USATI NEL setModel METODI APPOSTA PER AVER MESI E GIORNO DAL DAO
     		for(int i=1; i<=12; i++) {
     			boxMese.getItems().add(i);
     		}

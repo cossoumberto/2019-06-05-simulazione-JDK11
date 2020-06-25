@@ -75,6 +75,8 @@ public class EventsDao {
 		}
 	}
 	
+	//NELLA CORREZIONE DISTRETTI GESTITI COME INTERI
+	//USATI 2 METODI DIVERSI PER CALCOLARE LE SINGOLE LAT E LONG MEDIA DEL DISTRICT (passando anno e Integer del district) DA PASSARE AL MODEL
 	public void listDistrictForYears(Integer year, Map<Integer, District> idMap){
 		String sql = "SELECT district_id AS ID, AVG(geo_lat) AS LAT, AVG(geo_lon) AS LON FROM `events` WHERE YEAR(reported_date)=? GROUP BY district_id";
 		try {
@@ -91,8 +93,10 @@ public class EventsDao {
 		}
 	}
 	
+	//PASSA DIRETTAMENTE ANNO, MESE E GIORNO
+	//RETURN DIRETTAMENTE IL RESULT AL SIMULATOR
 	public List<Event> listEventsDate(LocalDate data, Map<Integer, District> idMap){
-		String sql = "SELECT * FROM `events` WHERE DATE(reported_date) = ?";
+		String sql = "SELECT * FROM `events` WHERE DATE(reported_date) = ?"; //USA QUINDI YEAR..= MONTH..= DAY..=
 		List<Event> list = new ArrayList<>() ;
 		try {
 			Connection conn = DBConnect.getConnection() ;
@@ -130,6 +134,8 @@ public class EventsDao {
 	
 	public District localizzaCentralePolizia(Integer anno, Map<Integer, District> idMap) {
 		String sql = "SELECT district_id AS d, COUNT(incident_id) AS c FROM `events` WHERE YEAR(reported_date)=? GROUP BY district_id";
+		//calcola direttamente la centrale nella query, ordinando per c crescente e usando LIMIT 1
+		//PASSA POI IL RESULT DIRETTAMENTE AL SIMULATOR
 		District centrale = null;
 		Integer numCrimini = -1;
 		boolean primo = true;
