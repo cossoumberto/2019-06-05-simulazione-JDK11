@@ -30,10 +30,10 @@ public class FXMLController {
     private ComboBox<Integer> boxAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxMese"
-    private ComboBox<?> boxMese; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxMese; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxGiorno"
-    private ComboBox<?> boxGiorno; // Value injected by FXMLLoader
+    private ComboBox<Integer> boxGiorno; // Value injected by FXMLLoader
 
     @FXML // fx:id="btnCreaReteCittadina"
     private Button btnCreaReteCittadina; // Value injected by FXMLLoader
@@ -59,12 +59,31 @@ public class FXMLController {
     			for(DistrictDistanza dd : model.getVicini(d))
     				txtResult.appendText(dd.toString() + "\n");
     		}
+    		for(int i=1; i<=12; i++) {
+    			boxMese.getItems().add(i);
+    		}
+    		for(int i=1; i<=31; i++) {
+    			boxGiorno.getItems().add(i);
+    		}
     	}
     }
 
     @FXML
     void doSimula(ActionEvent event) {
-
+    	if(model.getGrafo()!=null) {
+    		if(boxMese.getValue()!=null && boxGiorno.getValue()!=null && boxAnno.getValue()!=null) {
+    			try {
+    			Integer N = Integer.parseInt(txtN.getText());
+    			if(N<1 || N>10)
+    				throw new NumberFormatException();
+    			txtResult.setText("I casi mal gestiti sono: " + model.simula(boxAnno.getValue(), boxMese.getValue(), boxGiorno.getValue(), N));
+    			} catch (NumberFormatException e) {
+    				txtResult.setText("N non valido");
+    			}
+    		} else 
+    			txtResult.setText("Selezionare data");
+    	} else 
+    		txtResult.setText("Creare grafo");
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

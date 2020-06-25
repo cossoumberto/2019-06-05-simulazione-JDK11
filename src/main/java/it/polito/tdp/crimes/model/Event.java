@@ -13,7 +13,7 @@ public class Event {
 	private String incident_address;
 	private double geo_lon;
 	private double geo_lat;
-	private Integer district_id;
+	private District district;
 	private Integer precinct_id;
 	private String neighborhood_id;
 	private Integer is_crime;
@@ -21,7 +21,7 @@ public class Event {
 	
 	public Event(Long incident_id, Integer offense_code, Integer offense_code_extension, String offense_type_id,
 			String offense_category_id, LocalDateTime reported_date, String incident_address, double geo_lon,
-			double geo_lat, Integer district_id, Integer precinct_id, String neighborhood_id, Integer is_crime,
+			double geo_lat, District district, Integer precinct_id, String neighborhood_id, Integer is_crime,
 			Integer is_traffic) {
 		super();
 		this.incident_id = incident_id;
@@ -33,7 +33,7 @@ public class Event {
 		this.incident_address = incident_address;
 		this.geo_lon = geo_lon;
 		this.geo_lat = geo_lat;
-		this.district_id = district_id;
+		this.district = district;
 		this.precinct_id = precinct_id;
 		this.neighborhood_id = neighborhood_id;
 		this.is_crime = is_crime;
@@ -94,11 +94,11 @@ public class Event {
 	public void setGeo_lat(double geo_lat) {
 		this.geo_lat = geo_lat;
 	}
-	public Integer getDistrict_id() {
-		return district_id;
+	public District getDistrict() {
+		return district;
 	}
-	public void setDistrict_id(Integer district_id) {
-		this.district_id = district_id;
+	public void setDistrict(District district) {
+		this.district = district;
 	}
 	public Integer getPrecinct_id() {
 		return precinct_id;
@@ -124,12 +124,12 @@ public class Event {
 	public void setIs_traffic(Integer is_traffic) {
 		this.is_traffic = is_traffic;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((district_id == null) ? 0 : district_id.hashCode());
+		result = prime * result + ((district == null) ? 0 : district.hashCode());
 		return result;
 	}
 
@@ -142,10 +142,10 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (district_id == null) {
-			if (other.district_id != null)
+		if (district == null) {
+			if (other.district != null)
 				return false;
-		} else if (!district_id.equals(other.district_id))
+		} else if (!district.equals(other.district))
 			return false;
 		return true;
 	}
@@ -153,7 +153,7 @@ public class Event {
 	@Override
 	public String toString() {
 		return "Event [incident_id=" + incident_id + ", offense_category_id=" + offense_category_id + ", reported_date="
-				+ reported_date + ", district_id=" + district_id + "]";
+				+ reported_date + ", district_id=" + district.getId() + "]";
 	}
 	
 	

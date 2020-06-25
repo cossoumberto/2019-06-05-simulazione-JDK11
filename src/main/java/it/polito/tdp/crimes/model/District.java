@@ -1,21 +1,18 @@
 package it.polito.tdp.crimes.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.javadocmd.simplelatlng.LatLng;
 
 public class District implements Comparable<District> {
 	
 	private Integer id;
 	private LatLng coord;
-	private List<Double> distanze;
+	private Integer numAgenti;
 	
 	public District(Integer id, Double latitude, Double longitude) {
 		super();
 		this.id = id;
 		coord = new LatLng(latitude, longitude);
-		distanze = new ArrayList<>();
+		this.numAgenti = 0;
 	}
 
 	public Integer getId() {
@@ -32,6 +29,14 @@ public class District implements Comparable<District> {
 
 	public void setCoord(LatLng coord) {
 		this.coord = coord;
+	}
+
+	public Integer getNumAgenti() {
+		return numAgenti;
+	}
+
+	public void setNumAgenti(Integer numAgenti) {
+		this.numAgenti = numAgenti;
 	}
 
 	@Override
